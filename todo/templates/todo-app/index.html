@@ -13,10 +13,22 @@
             <header>
                 <div>
                     <h1>{{ task['task'] }}</h1>
-                <div class="about">by {{ task['username'] }} on {{ task['creation_time'].strftime('%Y-%m-%d') }}</div>
+                <div class="about">by {{ task['username'] }} on {{ task['creation_time'].strftime('%Y-%m-%d') }} and due on {{ task['expiration_date'].strftime('%Y-%m-%d') }} </div>
+                {% if task['completion_date'] %}
+                    <div class="about">it was completed on {{ task['completion_date'].strftime('%Y-%m-%d') }}</div>
+                {% endif %}
                 </div>
                     {% if g.user['id'] == task['user_id'] %}
-                        <a class="action" href="{{ url_for('todo.update', id=task['id']) }}">Edit</a>
+                        
+                        
+                        {% if not task['completion_date'] %}
+                            <a class="action" href="{{ url_for('todo.update', id=task['id']) }}">Edit</a>
+                            
+                            <form action="{{ url_for('todo.mark_completed', id=task['id']) }}" method="post">
+                                <input class="danger" type="submit" value="Complete" onclick="return confirm('Are you sure?');">
+                            </form>
+                        {% endif %}
+                        
                     {% endif %}
             </header>
         </article>

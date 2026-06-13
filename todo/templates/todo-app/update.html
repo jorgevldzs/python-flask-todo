@@ -12,7 +12,7 @@
 
 
         <label for="expiration_date">Expiration Date</label>
-        <input name="expiration_date" id="expiration_date" value="{{ request.form['expiration_date'] or task['expiration_date'] }}" type="date" required>
+        <input type="date" name="expiration_date" id="expiration_date" value="{{ request.form['expiration_date'] or task['expiration_date'].strftime('%Y-%m-%d') }}" required>
 
 
         <input type="submit" value="Save">

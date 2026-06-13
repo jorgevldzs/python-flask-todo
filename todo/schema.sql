@@ -13,6 +13,6 @@ CREATE TABLE tasks (
     creation_time TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     task TEXT NOT NULL,
     expiration_date TIMESTAMP NOT NULL,
-
+    completion_date TIMESTAMP DEFAULT NULL,
     FOREIGN KEY (user_id) REFERENCES users (id)
 );

@@ -9,12 +9,15 @@ from todo.db import get_db
 bp = Blueprint('todo', __name__)
 
 @bp.route('/')
+@login_required
 def index():
     db = get_db()
     tasks = db.execute(
-        'SELECT t.id, t.task, t.creation_time, t.expiration_date, t.user_id, u.username'
+        'SELECT t.id, t.task, t.creation_time, t.expiration_date, t.completion_date, t.user_id, u.username'
         ' FROM tasks t JOIN users u ON t.user_id = u.id'
-        ' ORDER BY t.creation_time DESC'
+        ' WHERE u.id = ?'
+        ' ORDER BY t.creation_time DESC',
+        (g.user['id'],)
     ).fetchall()
     return render_template('todo-app/index.html', tasks=tasks)
 
@@ -76,6 +79,20 @@ def update(id):
             return redirect(url_for('todo.index'))
 
     return render_template('todo-app/update.html', task=task)
+
+
+@bp.route('/<int:id>/completed', methods=('POST',))
+@login_required
+def mark_completed(id):
+    get_task(id)
+    db = get_db()
+    db.execute(
+        'UPDATE tasks SET completion_date = CURRENT_TIMESTAMP'
+        ' WHERE id = ?',
+        (id,)
+    )
+    db.commit()
+    return redirect(url_for('todo.index'))
 
 
 def get_task(id, check_author=True):
