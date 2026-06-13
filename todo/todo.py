@@ -12,14 +12,26 @@ bp = Blueprint('todo', __name__)
 @login_required
 def index():
     db = get_db()
-    tasks = db.execute(
+    remaining_tasks = db.execute(
         'SELECT t.id, t.task, t.creation_time, t.expiration_date, t.completion_date, t.user_id, u.username'
         ' FROM tasks t JOIN users u ON t.user_id = u.id'
         ' WHERE u.id = ?'
-        ' ORDER BY t.creation_time DESC',
+        ' AND completion_date IS NULL'
+        ' ORDER BY t.expiration_date ASC',
         (g.user['id'],)
     ).fetchall()
-    return render_template('todo-app/index.html', tasks=tasks)
+
+    completed_tasks = db.execute(
+        'SELECT t.id, t.task, t.creation_time, t.expiration_date, t.completion_date, t.user_id, u.username'
+        ' FROM tasks t JOIN users u ON t.user_id = u.id'
+        ' WHERE u.id = ?'
+        ' AND completion_date IS NOT NULL'
+        ' ORDER BY t.completion_date DESC',
+        (g.user['id'],)
+    ).fetchall()
+
+
+    return render_template('todo-app/index.html', remaining_tasks=remaining_tasks, completed_tasks=completed_tasks)
 
 @bp.route('/create', methods=('GET', 'POST'))
 @login_required

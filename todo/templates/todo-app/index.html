@@ -1,35 +1,59 @@
 {% extends 'base.html' %}
 
 {% block header %}
-    <h1>{% block title %}To do{% endblock %}</h1>
+    <h2>{% block title %}Tasks{% endblock %}</h2>
     {% if g.user %}
-        <a class="action" href="{{ url_for('todo.create') }}">New</a>
+        <a class="action" href="{{ url_for('todo.create') }}">Create Task</a>
     {% endif %}
 {% endblock %}
 
 {% block content %}
-    {% for task in tasks %}
+    {% if remaining_tasks%}
+        <h2>To do</h2>
+    {% endif %}
+    {% for task in remaining_tasks %}
         <article class="task">
             <header>
                 <div>
-                    <h1>{{ task['task'] }}</h1>
-                <div class="about">by {{ task['username'] }} on {{ task['creation_time'].strftime('%Y-%m-%d') }} and due on {{ task['expiration_date'].strftime('%Y-%m-%d') }} </div>
+                    <h3>{{ task['task'] }}</h3>
+                <div class="about">created on {{ task['creation_time'].strftime('%Y-%m-%d') }} and due on {{ task['expiration_date'].strftime('%Y-%m-%d') }} </div>
                 {% if task['completion_date'] %}
                     <div class="about">it was completed on {{ task['completion_date'].strftime('%Y-%m-%d') }}</div>
                 {% endif %}
                 </div>
-                    {% if g.user['id'] == task['user_id'] %}
+                    
                         
                         
-                        {% if not task['completion_date'] %}
-                            <a class="action" href="{{ url_for('todo.update', id=task['id']) }}">Edit</a>
-                            
-                            <form action="{{ url_for('todo.mark_completed', id=task['id']) }}" method="post">
-                                <input class="danger" type="submit" value="Complete" onclick="return confirm('Are you sure?');">
-                            </form>
-                        {% endif %}
                         
-                    {% endif %}
+                <a class="action" href="{{ url_for('todo.update', id=task['id']) }}">Edit</a>
+
+                <form action="{{ url_for('todo.mark_completed', id=task['id']) }}" method="post">
+                    <input class="danger" type="submit" value="Complete" onclick="return confirm('Are you sure?');">
+                </form>
+                        
+                        
+                    
+            </header>
+        </article>
+        {% if not loop.last %}
+            <hr>
+        {% endif %}
+    {% endfor %}
+
+
+    {% if completed_tasks %}
+        <h2>Completed</h2>
+    {% endif %}
+    {% for task in completed_tasks %}
+        <article class="task">
+            <header>
+                <div>
+                    <h3>{{ task['task'] }}</h3>
+                <div class="about">created on {{ task['creation_time'].strftime('%Y-%m-%d') }} and due on {{ task['expiration_date'].strftime('%Y-%m-%d') }} </div>
+                
+                <div class="about">it was completed on {{ task['completion_date'].strftime('%Y-%m-%d') }}</div>
+                
+                </div>
             </header>
         </article>
         {% if not loop.last %}
