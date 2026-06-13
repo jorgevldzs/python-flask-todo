@@ -8,8 +8,10 @@
     <form method="post">
         <label for="task">Task</label>
         <input name="task" id="task" value="{{ request.form['task'] }}" required>
+
         <label for="expiration_date">Expiration Date</label>
-        <input name="expiration_date" id="expiration_date" value="{{ request.form['expiration_date'] }}" type="date" required>
+        <input name="expiration_date" id="expiration_date" value="{{ request.form['expiration_date'] }}" type="datetime-local" required>
+        
         <input type="submit" value="Save">
     </form>
 {% endblock %}

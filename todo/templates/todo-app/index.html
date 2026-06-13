@@ -16,30 +16,20 @@
             <header>
                 <div>
                     <h3>{{ task['task'] }}</h3>
-                <div class="about">created on {{ task['creation_time'].strftime('%Y-%m-%d') }} and due on {{ task['expiration_date'].strftime('%Y-%m-%d') }} </div>
-                {% if task['completion_date'] %}
-                    <div class="about">it was completed on {{ task['completion_date'].strftime('%Y-%m-%d') }}</div>
-                {% endif %}
-                </div>
-                    
-                        
-                        
-                        
+                <div class="about">created on {{ task['creation_time'].strftime('%Y-%m-%d') }} and due on {{ task['expiration_date'] }} </div>
+                
                 <a class="action" href="{{ url_for('todo.update', id=task['id']) }}">Edit</a>
 
                 <form action="{{ url_for('todo.mark_completed', id=task['id']) }}" method="post">
                     <input class="danger" type="submit" value="Complete" onclick="return confirm('Are you sure?');">
                 </form>
-                        
-                        
-                    
+            
             </header>
         </article>
         {% if not loop.last %}
             <hr>
         {% endif %}
     {% endfor %}
-
 
     {% if completed_tasks %}
         <h2>Completed</h2>
@@ -49,9 +39,9 @@
             <header>
                 <div>
                     <h3>{{ task['task'] }}</h3>
-                <div class="about">created on {{ task['creation_time'].strftime('%Y-%m-%d') }} and due on {{ task['expiration_date'].strftime('%Y-%m-%d') }} </div>
+                <div class="about">created on {{ task['creation_time'].strftime('%Y-%m-%d') }} and due on {{ task['expiration_date'] }} </div>
                 
-                <div class="about">it was completed on {{ task['completion_date'].strftime('%Y-%m-%d') }}</div>
+                <div class="about">it was completed on {{ task['completion_date'] }}</div>
                 
                 </div>
             </header>
