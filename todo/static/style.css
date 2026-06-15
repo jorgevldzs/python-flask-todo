@@ -1,0 +1,267 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Kenia&family=Metal+Mania&family=Outfit:wght@100..900&family=Public+Sans:ital,wght@0,100..900;1,100..900&family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&family=Young+Serif&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+
+    font-family: "Roboto", sans-serif;
+    font-optical-sizing: auto;
+    font-style: normal;
+}
+
+body {
+    background-color: rgb(250, 250, 250);
+    display: flex;
+    flex-direction: column;
+
+    align-items: center;
+
+
+}
+
+nav {
+    background-color: rgb(11, 20, 52);
+    width: 85%;
+    height: 10vh;
+
+    display: flex;
+    justify-content:space-between;
+
+    margin-top: 20px;
+    border-radius: 40px;
+
+}
+
+.banner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+
+    width: 30%;
+}
+
+.nav-title {
+    color: white;
+    font-weight: 700;
+
+}
+
+.logo {
+    width: 35px;
+}
+
+ul {
+    width: 30%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    gap: 15px;
+}
+
+li > a {
+    text-decoration: none;
+}
+
+.banner-button {
+    list-style: none;
+    font-size: 14px;
+}
+
+.full-link {
+    color: white;
+    font-weight: 600;
+
+    padding: 10px;
+    
+    border-radius: 20px;
+    border: 1px solid rgb(65, 136, 227);
+    background-color: rgb(65, 136, 227);
+}
+
+.no-full-link {
+    color: rgb(65, 136, 227);
+    font-weight: 300;
+
+    padding: 10px;
+    
+    border-radius: 20px;
+    border: 1px solid rgb(65, 136, 227);
+}
+
+.no-full-link:hover {
+    background-color: rgb(65, 136, 227);
+    color: white;
+    font-weight: 600;
+}
+
+.username {
+    color: white;
+    font-weight: bold;
+}
+
+.content {
+    background-color: white;
+
+    
+}
+
+header {
+    text-align: center;
+}
+
+.auth {
+    width: 50%;
+    padding: 20px;
+
+    border-radius: 20px;
+    border: 2px solid rgb(240, 240, 240);
+    margin-top: 80px;
+}
+
+.auth > form {
+    height: 35vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+
+.form-element {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-element > label {
+    font-size: 18px;
+    font-weight: 300;
+    margin-bottom: 5px;
+    
+}
+
+.form-element > input[type=text] {
+    border: 1px solid rgb(240, 240, 240);
+    border-radius: 5px;
+    font-size: 18px;
+    padding: 5px;
+}
+
+.form-element > input[type=datetime-local] {
+    border: 1px solid rgb(240, 240, 240);
+    border-radius: 5px;
+    font-size: 18px;
+    padding: 5px;
+}
+
+input[type=submit].form-element {
+    color: white;
+    background-color: rgb(65, 136, 227);
+    border: none;
+    border-radius: 20px;
+    width: 25%;
+    margin: 0 auto;
+    padding: 10px;
+    font-weight: bold;
+    font-size: 18px;
+
+}
+
+.index {
+    width: 80%;
+    padding: 20px;
+
+    border-radius: 20px;
+    border: 2px solid rgb(240, 240, 240);
+
+    margin-top: 40px;
+    margin-bottom: 40px;
+}
+
+.division-block {
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+.heading {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+}
+
+.title {
+    font-size: 40px;
+}
+
+.heading-block {
+    font-size: 25px;
+}
+
+.create, .edit {
+    width: 35px;
+}
+
+.complete {
+    width: 40px;
+}
+
+
+
+.task {
+    display: flex;    
+    justify-content: space-between;
+    padding: 15px;
+}
+
+.complete-task {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.task-info {
+    font-size: 20px;
+}
+
+.info-edit {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+
+.due-time {
+    font-size: 14px;
+    font-weight: 400;
+}
+
+hr {
+    height: 3px;
+    
+    background: rgb(230, 230, 230);
+    font-size: 0;
+    border: 0;
+}
+
+input[type=submit].form-element.del {
+    background-color: rgb(209, 26, 26);
+}
+
+.flash {
+    color: rgb(84, 83, 83);
+    padding: 5px;
+    background-color:  rgb(208, 198, 198);
+    text-align: center;
+    border-radius: 5px;
+    width: 50%;
+    margin: 0 auto;
+    margin-top: 10px;
+}
+
+
+
+
+
+

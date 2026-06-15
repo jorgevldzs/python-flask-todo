@@ -1,24 +1,36 @@
-<!doctype html>
-<title>{% block title %}{% endblock %} - To do App</title>
-<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-<nav>
-	<h1>To do App</h1>
-	<ul>
-		{% if g.user %}
-			<li><span>{{ g.user['username'] }}</span>
-			<li><a href="{{ url_for('auth.logout') }}">Log Out</a>
-		{% else %}
-			<li><a href="{{ url_for('auth.register') }}">Register</a>
-			<li><a href="{{ url_for('auth.login') }}">Log In</a>
-		{% endif %}
-	</ul>
-</nav>
-<section class="content">
-	<header>
-		{% block header %}{% endblock %}
-	</header>
-	{% for message in get_flashed_messages() %}
-		<div class="flash">{{ message }}</div>
-	{% endfor %}
-	{% block content %}{% endblock %}
-</section>
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>{% block title %}{% endblock %} - To do App</title>
+		<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+	</head>
+	<body>
+		<nav>
+			<div class="banner">
+				<img src="{{ url_for('static', filename='logo.png') }}" alt="logo" class="logo">
+				<h1 class="nav-title">To do</h1>
+			</div>
+			
+			<ul>
+				{% if g.user %}
+					<li class="banner-button user"><span class="username">{{ g.user['username'] }}</span>
+					<li class="banner-button no-full"><a class="no-full-link" href="{{ url_for('auth.logout') }}">Log Out</a>
+				{% else %}
+					<li class="banner-button no-full"><a class="no-full-link" href="{{ url_for('auth.register') }}">Register</a>
+					<li class="banner-button full"><a class="full-link" href="{{ url_for('auth.login') }}">Log In</a>
+				{% endif %}
+			</ul>
+		</nav>
+		<section class="content {% block page %}{% endblock %}">
+			<header>
+				{% block header %}{% endblock %}
+			</header>
+			{% for message in get_flashed_messages() %}
+				<div class="flash">{{ message }}</div>
+			{% endfor %}
+			{% block content %}{% endblock %}
+		</section>
+	</body>
+</html>

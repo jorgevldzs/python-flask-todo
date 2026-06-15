@@ -1,17 +1,24 @@
 {% extends 'base.html' %}
 
+{% block page %}auth{% endblock %}
+
 {% block header %}
     <h1>{% block title %}New Task{% endblock %}</h1>
 {% endblock %}
 
 {% block content %}
     <form method="post">
-        <label for="task">Task</label>
-        <input name="task" id="task" value="{{ request.form['task'] }}" required>
-
-        <label for="expiration_date">Expiration Date</label>
-        <input name="expiration_date" id="expiration_date" value="{{ request.form['expiration_date'] }}" type="datetime-local" required>
+        <div class="form-element">
+            <label for="task">Task</label>
+            <input type="text" name="task" id="task" value="{{ request.form['task'] }}" required>
+        </div>
+        <div class="form-element">
+            <label for="expiration_date">Expiration Date</label>
+            <input name="expiration_date" id="expiration_date" value="{{ request.form['expiration_date'] }}" type="datetime-local" required>
+        </div>
         
-        <input type="submit" value="Save">
+
+
+        <input type="submit" value="Save" class="form-element">
     </form>
 {% endblock %}

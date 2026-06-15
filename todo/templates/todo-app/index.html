@@ -1,53 +1,70 @@
 {% extends 'base.html' %}
 
+{% block page %}index{% endblock %}
+
 {% block header %}
-    <h2>{% block title %}Tasks{% endblock %}</h2>
-    {% if g.user %}
-        <a class="action" href="{{ url_for('todo.create') }}">Create Task</a>
-    {% endif %}
+    <div class="division-block heading">
+        <h2 class="title">{% block title %}Tasks{% endblock %}</h2>
+        {% if g.user %}
+            <a class="action" href="{{ url_for('todo.create') }}">
+                <img src="{{ url_for('static', filename='create.png') }}" alt="Create" class="create">
+            </a>
+        {% endif %}
+    </div>
+    
 {% endblock %}
 
 {% block content %}
+    
     {% if remaining_tasks%}
-        <h2>To do</h2>
-    {% endif %}
-    {% for task in remaining_tasks %}
-        <article class="task">
-            <header>
-                <div>
-                    <h3>{{ task['task'] }}</h3>
-                <div class="about">created on {{ task['creation_time'].strftime('%Y-%m-%d') }} and due on {{ task['expiration_date'] }} </div>
-                
-                <a class="action" href="{{ url_for('todo.update', id=task['id']) }}">Edit</a>
+        <div class="division-block">
+            <h2 class="heading-block">To do</h2>
+            {% for task in remaining_tasks %}
+                <div class="task">
+                    <div class="complete-task">
+                        <form action="{{ url_for('todo.mark_completed', id=task['id']) }}" method="post">
+                            <input class="complete" type="image" value="Complete" onclick="return confirm('Are you sure?');" src="{{ url_for('static', filename='complete.png') }}">
+                        </form>
+                        <h3 class="task-info">{{ task['task'] }}</h3>
+                    </div>
+                    <div class="info-edit">
+                        <div class="due-time">Due on {{ task['expiration_date'] }} </div>
+                        <a class="action" href="{{ url_for('todo.update', id=task['id']) }}">
+                            <img src="{{ url_for('static', filename='edit.png') }}" alt="Edit" class="edit">
+                        </a>
+                    </div>
+                    
+                </div>
+                    
+                {% if not loop.last %}
+                    <hr>
+                {% endif %}
+            {% endfor %}
 
-                <form action="{{ url_for('todo.mark_completed', id=task['id']) }}" method="post">
-                    <input class="danger" type="submit" value="Complete" onclick="return confirm('Are you sure?');">
-                </form>
-            
-            </header>
-        </article>
-        {% if not loop.last %}
-            <hr>
-        {% endif %}
-    {% endfor %}
+        </div>
+    {% endif %}
 
     {% if completed_tasks %}
-        <h2>Completed</h2>
-    {% endif %}
-    {% for task in completed_tasks %}
-        <article class="task">
-            <header>
-                <div>
-                    <h3>{{ task['task'] }}</h3>
-                <div class="about">created on {{ task['creation_time'].strftime('%Y-%m-%d') }} and due on {{ task['expiration_date'] }} </div>
-                
-                <div class="about">it was completed on {{ task['completion_date'] }}</div>
-                
+        <div class="division-block">
+            <h2 class="heading-block">Completed</h2>
+            {% for task in completed_tasks %}
+                <div class="task">
+                    <div class="complete-task">
+                        
+                        <h3 class="task-info">{{ task['task'] }}</h3>
+                    </div>
+                    <div class="info-edit">
+                        <div class="due-time">Completed on {{ task['completion_date'] }}</div>
+                        
+                    </div>
                 </div>
-            </header>
-        </article>
-        {% if not loop.last %}
-            <hr>
-        {% endif %}
-    {% endfor %}
+                
+                {% if not loop.last %}
+                    <hr>
+                {% endif %}
+            {% endfor %}
+        </div>
+        
+    {% endif %}
+    
 {% endblock %}
